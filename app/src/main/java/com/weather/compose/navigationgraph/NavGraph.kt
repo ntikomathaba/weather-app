@@ -18,6 +18,7 @@ fun SetUpNavGraph(
             route = Screen.HomeScreen.route
         ) {
             WeatherApp(
+                navController = navController,
                 viewModel = viewModel
             )
         }
