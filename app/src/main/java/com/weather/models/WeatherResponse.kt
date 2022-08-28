@@ -1,5 +1,7 @@
 package com.weather.models
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 data class WeatherResponse(
 	val visibility: Int? = null,
 	val timezone: Int? = null,
@@ -18,10 +20,14 @@ data class WeatherResponse(
 
 data class Main(
 	val temp: Double? = null,
+
+	@JsonProperty("temp_min")
 	val tempMin: Double? = null,
 	val humidity: Int? = null,
 	val pressure: Int? = null,
 	val feelsLike: Double? = null,
+
+	@JsonProperty("temp_max")
 	val tempMax: Double? = null
 )
 

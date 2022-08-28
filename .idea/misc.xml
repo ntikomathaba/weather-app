@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.231" />
         <entry key="app/src/main/res/layout/activity_weather_application.xml" value="0.1890625" />
       </map>
     </option>

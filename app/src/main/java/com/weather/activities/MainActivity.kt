@@ -7,10 +7,15 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.weather.compose.components.WeatherProgressIndicator
 import com.weather.compose.navigationgraph.SetUpNavGraph
 import com.weather.ui.theme.MyWeatherAppTheme
 import com.weather.viewmodel.WeatherViewModel
@@ -41,12 +46,19 @@ class MainActivity : ComponentActivity() {
         ))
 
         setContent {
-            MyWeatherAppTheme {
-                navController = rememberNavController()
-                SetUpNavGraph(
-                    navController = navController,
-                    viewModel = viewModel,
-                )
+            when(viewModel.state.isLoading){
+                true -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    WeatherProgressIndicator()
+                }
+                false -> {
+                    MyWeatherAppTheme {
+                        navController = rememberNavController()
+                        SetUpNavGraph(
+                            navController = navController,
+                            viewModel = viewModel,
+                        )
+                    }
+                }
             }
         }
     }

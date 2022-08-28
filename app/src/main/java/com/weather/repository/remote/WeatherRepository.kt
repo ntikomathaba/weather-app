@@ -1,6 +1,7 @@
 package com.weather.repository.remote
 
 import com.weather.api.WeatherRestApiService
+import com.weather.domain.enum.MetricType
 import com.weather.models.WeatherResponse
 import com.weather.util.Resource
 import javax.inject.Inject
@@ -17,7 +18,8 @@ class WeatherRepository @Inject constructor(
                  data = weatherRestApiService.getWeather(
                      appid = apiKey,
                      lat = lat,
-                     long = long
+                     long = long,
+                     metric = MetricType.CELSIUS.metric
                  )
              )
         } catch (e: Exception) {

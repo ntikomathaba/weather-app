@@ -18,6 +18,8 @@ import com.weather.models.WeatherState
 import com.weather.repository.remote.WeatherRepository
 import com.weather.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
@@ -32,6 +34,9 @@ class WeatherViewModel @Inject constructor(
 
     var state by mutableStateOf(WeatherState())
     private lateinit var locationTrackerClient: FusedLocationProviderClient
+
+    private var _weatherType = MutableStateFlow(WeatherState())
+    val weather = _weatherType.asStateFlow()
 
     fun loadWeatherInfo(fusedLocationProviderClient: FusedLocationProviderClient) {
         viewModelScope.launch {
@@ -51,6 +56,7 @@ class WeatherViewModel @Inject constructor(
                             isLoading = false,
                             error = null
                         )
+                        _weatherType.value = state
                     }
                     is Resource.Error -> {
                         state = state.copy(
@@ -58,6 +64,7 @@ class WeatherViewModel @Inject constructor(
                             isLoading = false,
                             error = result.message
                         )
+                        _weatherType.value = state
                     }
                 }
             }
