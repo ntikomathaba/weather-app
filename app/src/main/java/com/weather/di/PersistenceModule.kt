@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.weather.constants.DATABASE_NAME
 import com.weather.db.WeatherDB
+import com.weather.db.dao.LocalWeatherDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

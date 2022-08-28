@@ -1,9 +1,12 @@
 package com.weather.di
 
+import android.app.Application
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.weather.BuildConfig
 import com.weather.api.WeatherRestApiService
 import com.weather.constants.BASE_URL
@@ -32,8 +35,6 @@ object AppModule {
             .client(okHttpClient)
             .addConverterFactory(JacksonConverterFactory.create(mapper))
             .build()
-
-//        https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
     }
 
     @Provides
@@ -64,6 +65,13 @@ object AppModule {
     }
 
     @Provides
+    @Named("googleApiKey")
+    @Singleton
+    fun provideGoogleApiKey(): String {
+        return BuildConfig.GOOGLE_API_KEY
+    }
+
+    @Provides
     @Singleton
     fun provideHttpClient(): OkHttpClient {
         val httpLogging = HttpLoggingInterceptor()
@@ -80,6 +88,12 @@ object AppModule {
             .readTimeout(30, TimeUnit.SECONDS)
 
         return okHttpClient.build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(app: Application): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(app)
     }
 
 }

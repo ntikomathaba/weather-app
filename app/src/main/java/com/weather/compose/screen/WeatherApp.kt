@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import com.weather.viewmodel.WeatherViewModel
 
 @Composable
-fun HelloWorld(
+fun WeatherApp(
     viewModel: WeatherViewModel
 ) {
     Text(text = "You may begin bruh")

@@ -1,9 +1,12 @@
 package com.weather.viewmodel
 
+import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.weather.repository.WeatherRepository
+import com.weather.db.dao.LocalWeatherDao
+import com.weather.repository.local.LocalWeatherRepository
+import com.weather.repository.remote.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,16 +17,18 @@ class WeatherViewModel @Inject constructor(
     val objectMapper: ObjectMapper
 ) : ViewModel(){
 
-    init {
-        viewModelScope.launch {
-            getWeather()
-        }
-    }
 
-    private suspend fun getWeather() {
-        weatherRepository.getWeather(
-            lat = 35.0,
-            long = 39.0
-        )
+
+    fun setCurrentLocation(location: Location?) {
+        if (location != null) {
+            viewModelScope.launch {
+                val weatherResponse = weatherRepository.getWeather(
+                    location.latitude,
+                    location.longitude
+                )
+
+//                localWeatherRepository.insertWeather(weatherResponse)
+            }
+        }
     }
 }

@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.weather.compose.screen.HelloWorld
 import com.weather.compose.screen.Screen
+import com.weather.compose.screen.WeatherApp
 import com.weather.viewmodel.WeatherViewModel
 
 @Composable
@@ -17,7 +17,7 @@ fun SetUpNavGraph(
         composable(
             route = Screen.HomeScreen.route
         ) {
-            HelloWorld(
+            WeatherApp(
                 viewModel = viewModel
             )
         }
