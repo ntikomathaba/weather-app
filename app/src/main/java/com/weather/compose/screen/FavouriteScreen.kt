@@ -7,7 +7,7 @@ import com.weather.compose.components.WeatherBottomAppBar
 import com.weather.viewmodel.WeatherViewModel
 
 @Composable
-fun WeatherAppHomeScreen(
+fun FavouriteScreen(
     navController: NavController,
     viewModel: WeatherViewModel
 ) {
@@ -15,9 +15,6 @@ fun WeatherAppHomeScreen(
         navController = navController,
         snackBarHost = { },
     ) {
-        Text(text = "You are in  ${viewModel.state.weatherInfo?.name}")
+        Text(text = "Favourite screen")
     }
-
-
-
 }

@@ -4,20 +4,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.weather.compose.components.WeatherBottomAppBar
-import com.weather.viewmodel.WeatherViewModel
+import com.weather.viewmodel.MapsViewModel
 
 @Composable
-fun WeatherAppHomeScreen(
+fun MapScreen(
     navController: NavController,
-    viewModel: WeatherViewModel
+    viewModel: MapsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     WeatherBottomAppBar(
         navController = navController,
         snackBarHost = { },
     ) {
-        Text(text = "You are in  ${viewModel.state.weatherInfo?.name}")
+        Text(text = "Map screen")
     }
-
-
-
 }
