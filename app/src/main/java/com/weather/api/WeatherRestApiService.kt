@@ -25,7 +25,8 @@ interface WeatherRestApiService {
     suspend fun getWeatherForecast(
         @Query("APPID") appid: String,
         @Query("lat") lat: Double,
-        @Query("lon") long: Double
+        @Query("lon") long: Double,
+        @Query("units") metric: String
     ): ForecastResponse
 
     @GET(value = "/data/2.5/forecast")

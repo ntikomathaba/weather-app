@@ -6,10 +6,11 @@ import java.time.LocalDateTime
 data class WeatherState(
     val weatherInfo: WeatherResponse? = null,
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    val weatherForecast: ForecastResponse? = null
 )
 
-data class WeatherInfo(
+data class WeatherForecast(
     val weatherDataPerDay: Map<Int, List<WeatherData>>,
     val currentWeatherData: WeatherData?
 )
