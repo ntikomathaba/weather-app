@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.weather.models.ForecastResponse
 import com.weather.models.WeatherState
+import com.weather.repository.local.LocalWeatherRepository
 import com.weather.repository.remote.WeatherRepository
 import com.weather.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +31,7 @@ import kotlin.coroutines.resume
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository,
+    private val localWeatherRepository: LocalWeatherRepository,
     val objectMapper: ObjectMapper,
     private val application: Application
 ) : ViewModel(){
@@ -49,7 +51,7 @@ class WeatherViewModel @Inject constructor(
     fun loadWeatherInfo(fusedLocationProviderClient: FusedLocationProviderClient) {
         viewModelScope.launch {
             locationTrackerClient = fusedLocationProviderClient
-            state = state.copy(
+            _weatherInfo.value = _weatherInfo.value.copy(
                 isLoading = true,
                 error = null
             )
@@ -59,48 +61,24 @@ class WeatherViewModel @Inject constructor(
                     long = location.longitude
                 )) {
                     is Resource.Success -> {
-                        state = state.copy(
+                        _weatherInfo.value = _weatherInfo.value.copy(
                             weatherInfo = result.data,
                             isLoading = false,
                             error = null
                         )
-                        _weatherInfo.value = state
+                        _weatherInfo.value = _weatherInfo.value
                     }
                     is Resource.Error -> {
-                        state = state.copy(
+                        _weatherInfo.value = _weatherInfo.value.copy(
                             weatherInfo = result.data,
                             isLoading = false,
                             error = result.message
                         )
-                        _weatherInfo.value = state
+                        _weatherInfo.value = _weatherInfo.value
                     }
                 }
 
-//                when(val forecast = weatherRepository.getWeatherForecast(
-//                    lat = location.latitude,
-//                    long = location.longitude
-//                )){
-//                    is Resource.Success -> {
-//                        println("fuck failure")
-//                        _foreCastInfo.value = forecast.data!!
-//
-////                        state = state.copy(
-////                            weatherForecast = forecast.data
-////                        )
-//                    }
-//                    is Resource.Error -> {
-//                        println("fuck success")
-//                        _foreCastInfo.value = forecast.data!!
-////                        state = state.copy(
-////                            weatherForecast = forecast.data
-////                        )
-//                    }
-//                }
-//
-////                println("WeatherForecast -> ${objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(weatherRepository.getWeatherForecast(
-////                    lat = location.latitude,
-////                    long = location.longitude
-////                ).data)}")
+//            localWeatherRepository.insertWeather(weather.value.weatherInfo.weather[0].)
 
                 _foreCastInfo.value = weatherRepository.getForecast(lat = location.latitude, long = location.longitude)
 
