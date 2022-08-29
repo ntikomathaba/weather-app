@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -46,7 +47,8 @@ class MainActivity : ComponentActivity() {
         ))
 
         setContent {
-            when(viewModel.state.isLoading){
+            val weather = viewModel.weather.collectAsState()
+            when(weather.value.isLoading){
                 true -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     WeatherProgressIndicator()
                 }

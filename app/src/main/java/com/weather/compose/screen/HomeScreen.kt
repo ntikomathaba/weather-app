@@ -1,9 +1,10 @@
 package com.weather.compose.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -14,8 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.ParagraphStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.weather.R
@@ -125,20 +133,115 @@ fun CurrentWeatherCard(
     Column {
         state.weatherInfo?.let {
             Card(
-                backgroundColor = Color.White,
-                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier.padding(16.dp)
+                backgroundColor = Color.Transparent,
+//                shape = RoundedCornerShape(10.dp),
+                elevation = 0.dp,
+                modifier = Modifier.fillMaxSize().padding(16.dp).border(border = BorderStroke(0.dp, Color.Transparent))
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text(text = "Temperature ${it.main?.temp} °C")
-                    Text(text = "Today is ${it.weather?.get(0)?.main}")
-                    Text(text = "Min is ${it.main?.tempMin} °C")
-                    Text(text = "Max is ${it.main?.tempMax} °C")
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.8f),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = ParagraphStyle(lineHeight = 40.sp)) {
+                                    withStyle(style = SpanStyle(color = Color.White, fontSize = 60.sp)) {
+                                        append("${it.main?.temp?.roundToInt()} °C\n")
+                                    }
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White
+                                        )
+                                    ) {
+                                        append("${it.weather?.get(0)?.main}\n")
+                                    }
+                                }
+                            },
+                            modifier = Modifier.weight(0.33f),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.2f),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
+                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                        append("${it.main?.tempMin?.roundToInt()} °C\n")
+                                    }
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White
+                                        )
+                                    ) {
+                                        append("min\n")
+                                    }
+                                }
+                            },
+                            modifier = Modifier.weight(0.33f),
+                            textAlign = TextAlign.Center
+                        )
+
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
+                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                        append("${it.main?.tempMin?.roundToInt()} °C\n")
+                                    }
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White
+                                        )
+                                    ) {
+                                        append("current\n")
+                                    }
+                                }
+                            },
+                            modifier = Modifier.weight(0.33f),
+                            textAlign = TextAlign.Center
+                        )
+
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
+                                    withStyle(style = SpanStyle(color = Color.White)) {
+                                        append("${it.main?.tempMax?.roundToInt()} °C\n")
+                                    }
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White
+                                        )
+                                    ) {
+                                        append("max\n")
+                                    }
+                                }
+                            },
+                            modifier = Modifier
+                                .weight(0.33f),
+                            textAlign = TextAlign.Center
+                        )
+//                        Text(text = "Min is ${it.main?.tempMin} °C")
+//                        Text(text = "Today is ${it.weather?.get(0)?.main}")
+//                        Text(text = "Max is ${it.main?.tempMax} °C")
+                    }
                 }
             }
         }
@@ -233,10 +336,10 @@ fun DayOfWeekItem(
     Row(
         modifier = Modifier.padding(top = 10.dp, bottom = 20.dp, end = 4.dp, start = 4.dp)
     ) {
-        Text(text = dayOfWeek, modifier = Modifier.weight(0.5f))
-        Icon(painter =  painterResource(id = icon), contentDescription = "", modifier = Modifier.weight(0.25f))
+        Text(text = dayOfWeek, modifier = Modifier.weight(0.5f), color = Color.White)
+        Icon(painter =  painterResource(id = icon), contentDescription = "", modifier = Modifier.weight(0.25f).size(20.dp), tint = Color.White)
         Spacer(modifier = Modifier.weight(0.1f))
-        Text(text = "${temp.roundToInt()}°C", modifier = Modifier.weight(0.15f))
+        Text(text = "${temp.roundToInt()}°C", modifier = Modifier.weight(0.15f), color = Color.White)
     }
 }
 
