@@ -1,6 +1,6 @@
 package com.weather.models
 
-import com.weather.domain.WeatherType
+import com.weather.domain.enum.WeatherCondition
 import java.time.LocalDateTime
 
 data class WeatherState(
@@ -21,5 +21,5 @@ data class WeatherData(
     val pressure: Double,
     val windSpeed: Double,
     val humidity: Double,
-    val weatherType: WeatherType
+    val weatherType: WeatherCondition
 )

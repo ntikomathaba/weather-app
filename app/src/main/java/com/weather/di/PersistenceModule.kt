@@ -23,6 +23,14 @@ object PersistenceModule {
         return Room.databaseBuilder(
             application,
             WeatherDB::class.java, DATABASE_NAME
-        ).build()
+        )
+            .allowMainThreadQueries()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocalWeatherDao(weatherDB: WeatherDB): LocalWeatherDao{
+        return weatherDB.localWeatherDao()
     }
 }
