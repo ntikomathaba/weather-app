@@ -15,12 +15,6 @@ interface WeatherRestApiService {
         @Query("units") metric: String
     ): WeatherResponse
 
-    @GET(value = "/data/2.5/weather")
-    suspend fun getWeatherByCity(
-        @Query("APPID") appid: String,
-        @Query("q") cityName: String
-    ): WeatherResponse
-
     @GET(value = "/data/2.5/forecast")
     suspend fun getWeatherForecast(
         @Query("APPID") appid: String,
@@ -28,6 +22,19 @@ interface WeatherRestApiService {
         @Query("lon") long: Double,
         @Query("units") metric: String
     ): ForecastResponse
+
+    @GET(value = "/geo/1.0/direct")
+    suspend fun getLocationNames(
+        @Query("APPID") appid: String,
+        @Query("q") q: String,
+        @Query("limit") limit: String
+    )
+
+    @GET(value = "/data/2.5/weather")
+    suspend fun getWeatherByCity(
+        @Query("APPID") appid: String,
+        @Query("q") cityName: String
+    ): WeatherResponse
 
     @GET(value = "/data/2.5/forecast")
     suspend fun getForecastByCity(

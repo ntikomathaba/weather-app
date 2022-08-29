@@ -1,4 +1,4 @@
-package com.weather.domain.enum
+package com.weather.domain.enums
 
 enum class DayOfWeek(val day: String) {
     MONDAY("Monday"),

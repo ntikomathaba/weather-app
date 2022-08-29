@@ -15,6 +15,7 @@ import com.weather.compose.screen.Screen
 fun WeatherBottomAppBar(
     navController: NavController,
     snackBarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },
+    topBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
 ) {
     val navItems = listOf(
@@ -24,6 +25,7 @@ fun WeatherBottomAppBar(
     )
 
     Scaffold(
+        topBar = topBar,
         bottomBar = {
             BottomAppBar(
                 backgroundColor = Color.White,

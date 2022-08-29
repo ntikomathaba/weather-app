@@ -1,4 +1,4 @@
-package com.weather.domain.enum
+package com.weather.domain.enums
 
 enum class WeatherCondition(val condition: String) {
     CLEAR("Clear"),

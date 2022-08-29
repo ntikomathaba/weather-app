@@ -8,12 +8,14 @@ import com.weather.compose.screen.FavouriteScreen
 import com.weather.compose.screen.MapScreen
 import com.weather.compose.screen.Screen
 import com.weather.compose.screen.WeatherAppHomeScreen
+import com.weather.viewmodel.FavouritesViewModel
 import com.weather.viewmodel.WeatherViewModel
 
 @Composable
 fun SetUpNavGraph(
     navController: NavHostController,
-    viewModel: WeatherViewModel
+    weatherViewModel: WeatherViewModel,
+    favViewModel: FavouritesViewModel
 ){
     NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
         composable(
@@ -21,7 +23,7 @@ fun SetUpNavGraph(
         ) {
             WeatherAppHomeScreen(
                 navController = navController,
-                viewModel = viewModel
+                viewModel = weatherViewModel
             )
         }
 
@@ -30,7 +32,7 @@ fun SetUpNavGraph(
         ) {
             FavouriteScreen(
                 navController = navController,
-                viewModel = viewModel
+                favViewModel = favViewModel
             )
         }
 

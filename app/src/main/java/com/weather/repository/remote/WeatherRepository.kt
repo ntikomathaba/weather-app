@@ -1,7 +1,7 @@
 package com.weather.repository.remote
 
 import com.weather.api.WeatherRestApiService
-import com.weather.domain.enum.MeasurementType
+import com.weather.domain.enums.MeasurementType
 import com.weather.models.ForecastResponse
 import com.weather.models.WeatherResponse
 import com.weather.util.Resource

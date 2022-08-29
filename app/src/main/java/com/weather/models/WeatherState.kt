@@ -1,6 +1,6 @@
 package com.weather.models
 
-import com.weather.domain.enum.WeatherCondition
+import com.weather.domain.enums.WeatherCondition
 import java.time.LocalDateTime
 
 data class WeatherState(

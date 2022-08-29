@@ -19,12 +19,15 @@ import com.google.android.gms.location.LocationServices
 import com.weather.compose.components.WeatherProgressIndicator
 import com.weather.compose.navigationgraph.SetUpNavGraph
 import com.weather.ui.theme.MyWeatherAppTheme
+import com.weather.viewmodel.FavouritesViewModel
 import com.weather.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: WeatherViewModel by viewModels()
+    private val weatherViewModel: WeatherViewModel by viewModels()
+    private val favViewModel: FavouritesViewModel by viewModels()
+
     private lateinit var navController: NavHostController
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -38,7 +41,7 @@ class MainActivity : ComponentActivity() {
         permissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            viewModel.loadWeatherInfo(fusedLocationProviderClient)
+            weatherViewModel.loadWeatherInfo(fusedLocationProviderClient)
         }
 
         permissionLauncher.launch(arrayOf(
@@ -47,7 +50,7 @@ class MainActivity : ComponentActivity() {
         ))
 
         setContent {
-            val weather = viewModel.weather.collectAsState()
+            val weather = weatherViewModel.weather.collectAsState()
             when(weather.value.isLoading){
                 true -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     WeatherProgressIndicator()
@@ -57,7 +60,8 @@ class MainActivity : ComponentActivity() {
                         navController = rememberNavController()
                         SetUpNavGraph(
                             navController = navController,
-                            viewModel = viewModel,
+                            weatherViewModel = weatherViewModel,
+                            favViewModel = favViewModel
                         )
                     }
                 }

@@ -28,8 +28,8 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.weather.R
 import com.weather.compose.components.WeatherBottomAppBar
-import com.weather.domain.enum.DayOfWeek
-import com.weather.domain.enum.WeatherCondition
+import com.weather.domain.enums.DayOfWeek
+import com.weather.domain.enums.WeatherCondition
 import com.weather.models.ForecastResponse
 import com.weather.models.WeatherState
 import com.weather.ui.theme.CloudyColor
