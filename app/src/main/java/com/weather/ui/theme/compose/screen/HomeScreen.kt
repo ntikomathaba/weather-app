@@ -1,4 +1,4 @@
-package com.weather.compose.screen
+package com.weather.ui.theme.compose.screen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.weather.R
-import com.weather.compose.components.WeatherBottomAppBar
+import com.weather.ui.theme.compose.components.WeatherBottomAppBar
 import com.weather.domain.enums.DayOfWeek
 import com.weather.domain.enums.WeatherCondition
 import com.weather.models.ForecastResponse

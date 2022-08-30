@@ -1,7 +1,6 @@
-package com.weather.compose.screen
+package com.weather.ui.theme.compose.screen
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn

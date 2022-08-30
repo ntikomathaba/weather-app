@@ -16,8 +16,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.weather.compose.components.WeatherProgressIndicator
-import com.weather.compose.navigationgraph.SetUpNavGraph
+import com.weather.ui.theme.compose.components.WeatherProgressIndicator
+import com.weather.ui.theme.compose.navigationgraph.SetUpNavGraph
 import com.weather.ui.theme.MyWeatherAppTheme
 import com.weather.viewmodel.FavouritesViewModel
 import com.weather.viewmodel.WeatherViewModel

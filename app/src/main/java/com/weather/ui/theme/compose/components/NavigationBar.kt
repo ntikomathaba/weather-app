@@ -1,7 +1,6 @@
-package com.weather.compose.components
+package com.weather.ui.theme.compose.components
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -9,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.weather.compose.screen.Screen
+import com.weather.ui.theme.compose.screen.Screen
 
 @Composable
 fun WeatherBottomAppBar(

@@ -1,13 +1,13 @@
-package com.weather.compose.navigationgraph
+package com.weather.ui.theme.compose.navigationgraph
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.weather.compose.screen.FavouriteScreen
-import com.weather.compose.screen.MapScreen
-import com.weather.compose.screen.Screen
-import com.weather.compose.screen.WeatherAppHomeScreen
+import com.weather.ui.theme.compose.screen.FavouriteScreen
+import com.weather.ui.theme.compose.screen.MapScreen
+import com.weather.ui.theme.compose.screen.Screen
+import com.weather.ui.theme.compose.screen.WeatherAppHomeScreen
 import com.weather.viewmodel.FavouritesViewModel
 import com.weather.viewmodel.WeatherViewModel
 

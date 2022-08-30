@@ -1,4 +1,4 @@
-package com.weather.compose.components
+package com.weather.ui.theme.compose.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

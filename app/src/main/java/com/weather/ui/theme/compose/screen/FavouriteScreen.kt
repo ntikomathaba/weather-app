@@ -1,4 +1,4 @@
-package com.weather.compose.screen
+package com.weather.ui.theme.compose.screen
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import com.weather.compose.components.SearchAppBar
-import com.weather.compose.components.WeatherBottomAppBar
+import com.weather.ui.theme.compose.components.SearchAppBar
+import com.weather.ui.theme.compose.components.WeatherBottomAppBar
 import com.weather.domain.enums.SearchWidgetState
 import com.weather.viewmodel.FavouritesViewModel
 
