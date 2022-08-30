@@ -6,14 +6,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.weather.db.entities.Coordinates
+import com.weather.db.entities.Weather
 import com.weather.models.ForecastResponse
 import com.weather.models.WeatherState
 import com.weather.repository.local.LocalWeatherRepository
@@ -24,7 +22,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
 
@@ -32,7 +29,6 @@ import kotlin.coroutines.resume
 class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository,
     private val localWeatherRepository: LocalWeatherRepository,
-    val objectMapper: ObjectMapper,
     private val application: Application
 ) : ViewModel(){
 
@@ -44,6 +40,12 @@ class WeatherViewModel @Inject constructor(
     private var _foreCastInfo = MutableStateFlow(ForecastResponse())
     val foreCastInfo = _foreCastInfo.asStateFlow()
 
+    private var localWeather = MutableStateFlow(Weather())
+
+
+    fun getWeatherInfo(){
+       val localWeather = localWeatherRepository.getWeatherLatestWeather()
+    }
 
     fun loadWeatherInfo(fusedLocationProviderClient: FusedLocationProviderClient) {
         viewModelScope.launch {
@@ -75,7 +77,21 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
 
-//            localWeatherRepository.insertWeather(weather.value.weatherInfo.weather[0].)
+
+
+                val coordinates = Coordinates(latitude = location.latitude, longitude = location.longitude)
+                localWeatherRepository.insertCoordinates(
+                    coordinates = coordinates
+                )
+
+                val weather = Weather(
+                    temp = _weatherInfo.value.weatherInfo?.main?.temp,
+                    tempMin = _weatherInfo.value.weatherInfo?.main?.tempMin,
+                    tempMax = _weatherInfo.value.weatherInfo?.main?.tempMax,
+                    description = _weatherInfo.value.weatherInfo?.weather?.get(0)?.description,
+                    main = _weatherInfo.value.weatherInfo?.weather?.get(0)?.main
+                )
+                localWeatherRepository.insertWeather(weather)
 
                 _foreCastInfo.value = weatherRepository.getForecast(lat = location.latitude, long = location.longitude)
 

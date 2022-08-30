@@ -7,7 +7,9 @@ import com.weather.models.WeatherResponse
 import com.weather.util.Resource
 import javax.inject.Inject
 import javax.inject.Named
+import javax.inject.Singleton
 
+@Singleton
 class WeatherRepository @Inject constructor(
     private val weatherRestApiService: WeatherRestApiService,
     @Named("apiKey") private val apiKey: String,

@@ -2,7 +2,7 @@ package com.weather.repository.remote
 
 import com.weather.api.WeatherRestApiService
 import com.weather.constants.SEARCH_LIMIT
-import com.weather.models.FavouriteLocationResponse
+import com.weather.models.FavouriteLocation
 import com.weather.util.Resource
 import javax.inject.Inject
 import javax.inject.Named
@@ -11,7 +11,7 @@ class FavouritesRepository @Inject constructor(
     private val weatherRestApiService: WeatherRestApiService,
     @Named("apiKey") private val apiKey: String,
 ){
-    suspend fun searchFavouriteLocation(city: String): Resource<FavouriteLocationResponse> {
+    suspend fun searchFavouriteLocation(city: String): Resource<List<FavouriteLocation>> {
         return try {
             Resource.Success(
                 data = weatherRestApiService.searchFavouriteLocation(

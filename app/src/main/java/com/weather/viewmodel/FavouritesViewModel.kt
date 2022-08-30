@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weather.domain.enums.SearchWidgetState
+import com.weather.models.FavouriteLocation
 import com.weather.repository.local.LocalWeatherRepository
 import com.weather.repository.remote.FavouritesRepository
 import com.weather.util.Resource
@@ -24,6 +25,8 @@ class FavouritesViewModel @Inject constructor(
     private val _searchTextState: MutableState<String> = mutableStateOf("")
     val searchTextState = _searchTextState
 
+    val locations: MutableList<FavouriteLocation> = mutableListOf()
+
     fun updateSearchWidgetState(newValue: SearchWidgetState){
         _searchWidgetState.value = newValue
     }
@@ -38,6 +41,9 @@ class FavouritesViewModel @Inject constructor(
             when(val response = favouritesRepository.searchFavouriteLocation(q)){
                 is Resource.Success -> {
                     Timber.d("${response.data}")
+                    response.data?.forEach {
+                        locations.add(it)
+                    }
                 }
                 is Resource.Error -> {
 

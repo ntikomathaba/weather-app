@@ -95,8 +95,7 @@ fun WeatherAppHomeScreen(
                         .weight(0.5f)
                 ) {
                     CurrentWeatherCard(
-                        state = weather.value,
-                        modifier = Modifier.zIndex(1f)
+                        state = weather.value
                     )
                     Image(
                         painter = painterResource(id = backgroundImage),
@@ -114,8 +113,7 @@ fun WeatherAppHomeScreen(
                         .weight(0.5f)
                 ) {
                     ForeCastCard(
-                        state = forecast.value,
-                        modifier = Modifier
+                        state = forecast.value
                     )
                 }
             }
@@ -127,14 +125,12 @@ fun WeatherAppHomeScreen(
 
 @Composable
 fun CurrentWeatherCard(
-    state: WeatherState,
-    modifier: Modifier = Modifier
+    state: WeatherState
 ) {
     Column {
         state.weatherInfo?.let {
             Card(
                 backgroundColor = Color.Transparent,
-//                shape = RoundedCornerShape(10.dp),
                 elevation = 0.dp,
                 modifier = Modifier.fillMaxSize().padding(16.dp).border(border = BorderStroke(0.dp, Color.Transparent))
             ) {
@@ -162,7 +158,7 @@ fun CurrentWeatherCard(
                                             color = Color.White
                                         )
                                     ) {
-                                        append("${it.weather?.get(0)?.main}\n")
+                                        append("${it.weather?.get(0)?.description}\n")
                                     }
                                 }
                             },
@@ -202,7 +198,7 @@ fun CurrentWeatherCard(
                             buildAnnotatedString {
                                 withStyle(style = ParagraphStyle(lineHeight = 20.sp)) {
                                     withStyle(style = SpanStyle(color = Color.White)) {
-                                        append("${it.main?.tempMin?.roundToInt()} °C\n")
+                                        append("${it.main?.temp?.roundToInt()} °C\n")
                                     }
                                     withStyle(
                                         style = SpanStyle(
@@ -238,9 +234,6 @@ fun CurrentWeatherCard(
                                 .weight(0.33f),
                             textAlign = TextAlign.Center
                         )
-//                        Text(text = "Min is ${it.main?.tempMin} °C")
-//                        Text(text = "Today is ${it.weather?.get(0)?.main}")
-//                        Text(text = "Max is ${it.main?.tempMax} °C")
                     }
                 }
             }
@@ -251,10 +244,8 @@ fun CurrentWeatherCard(
 
 @Composable
 fun ForeCastCard(
-    state: ForecastResponse,
-    modifier: Modifier = Modifier
+    state: ForecastResponse
 ) {
-
     Column {
         state.list?.take(5)?.forEachIndexed { dayOfWeek, forecastItem ->
             val icon: Int = when(forecastItem?.weather?.get(0)?.main){
