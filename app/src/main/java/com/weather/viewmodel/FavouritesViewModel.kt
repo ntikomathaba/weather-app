@@ -1,22 +1,22 @@
 package com.weather.viewmodel
 
-import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.fasterxml.jackson.databind.ObjectMapper
+import androidx.lifecycle.viewModelScope
 import com.weather.domain.enums.SearchWidgetState
 import com.weather.repository.local.LocalWeatherRepository
-import com.weather.repository.remote.WeatherRepository
+import com.weather.repository.remote.FavouritesRepository
+import com.weather.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class FavouritesViewModel @Inject constructor(
-    private val weatherRepository: WeatherRepository,
+    private val favouritesRepository: FavouritesRepository,
     private val localWeatherRepository: LocalWeatherRepository,
-    val objectMapper: ObjectMapper,
-    private val application: Application
 ) : ViewModel(){
     private val _searchWidgetState: MutableState<SearchWidgetState> = mutableStateOf(SearchWidgetState.CLOSED)
     val searchWidgetState = _searchWidgetState
@@ -30,5 +30,19 @@ class FavouritesViewModel @Inject constructor(
 
     fun updateSearchTextState(newValue: String) {
         _searchTextState.value = newValue
+    }
+
+    fun searchLocation(q: String) {
+        viewModelScope.launch {
+        Timber.d("Searching $q")
+            when(val response = favouritesRepository.searchFavouriteLocation(q)){
+                is Resource.Success -> {
+                    Timber.d("${response.data}")
+                }
+                is Resource.Error -> {
+
+                }
+            }
+        }
     }
 }

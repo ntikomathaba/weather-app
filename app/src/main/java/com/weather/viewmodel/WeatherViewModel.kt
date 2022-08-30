@@ -36,9 +36,6 @@ class WeatherViewModel @Inject constructor(
     private val application: Application
 ) : ViewModel(){
 
-    var state by mutableStateOf(WeatherState())
-        private set
-
     private lateinit var locationTrackerClient: FusedLocationProviderClient
 
     private var _weatherInfo = MutableStateFlow(WeatherState())

@@ -1,6 +1,10 @@
 package com.weather.compose.screen
 
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
@@ -28,16 +32,16 @@ fun FavouriteScreen(
                 searchTextState = searchTextState,
                 onTextChange = { favViewModel.updateSearchTextState(it) },
                 onCloseClicked = { favViewModel.updateSearchWidgetState(newValue = SearchWidgetState.CLOSED) },
-                onSearchClicked = {
-                    // todo search
-                },
-                onSearchTriggered = {
-                    favViewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED)
-                }
+                onSearchClicked = { favViewModel.searchLocation(it) },
+                onSearchTriggered = { favViewModel.updateSearchWidgetState(newValue = SearchWidgetState.OPENED) }
             )
         }
     ) {
-
+        LazyColumn{
+//            itemsIndexed(){ index, city ->
+//
+//            }
+        }
     }
 }
 

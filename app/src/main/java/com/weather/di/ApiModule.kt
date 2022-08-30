@@ -47,13 +47,13 @@ object ApiModule {
     @Singleton
     fun provideObjectMapper(): ObjectMapper {
         val objectMapper = ObjectMapper()
-        objectMapper.registerModule(KotlinModule())
+        objectMapper.registerModule(KotlinModule.Builder().build())
         objectMapper.registerModule(JavaTimeModule())
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
         objectMapper.configure(DeserializationFeature.FAIL_ON_NULL_CREATOR_PROPERTIES, false)
         objectMapper.configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false)
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        objectMapper.configure(DeserializationFeature.UNWRAP_SINGLE_VALUE_ARRAYS, true)
         return objectMapper
     }
 

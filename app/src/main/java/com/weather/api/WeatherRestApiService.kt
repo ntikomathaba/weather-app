@@ -1,5 +1,6 @@
 package com.weather.api
 
+import com.weather.models.FavouriteLocationResponse
 import com.weather.models.ForecastResponse
 import com.weather.models.WeatherResponse
 import retrofit2.http.GET
@@ -24,11 +25,11 @@ interface WeatherRestApiService {
     ): ForecastResponse
 
     @GET(value = "/geo/1.0/direct")
-    suspend fun getLocationNames(
+    suspend fun searchFavouriteLocation(
         @Query("APPID") appid: String,
         @Query("q") q: String,
-        @Query("limit") limit: String
-    )
+        @Query("limit") limit: Int
+    ) : FavouriteLocationResponse
 
     @GET(value = "/data/2.5/weather")
     suspend fun getWeatherByCity(
